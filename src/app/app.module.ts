@@ -10,6 +10,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
+import { AngularMaterialModule } from './angular-material/angular-material.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SharedModule } from './shared/shared.module';
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     SharedModule,
+    AngularMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

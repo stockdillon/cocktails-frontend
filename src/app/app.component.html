@@ -1,3 +1,20 @@
 <!-- <pre *ngIf="cocktails$ | async as cocktails">{{cocktails | json}}</pre> -->
 
-<router-outlet></router-outlet>
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
+        (closed)="events.push('close!')">
+        <mat-list>
+            <mat-list-item *ngFor="let route of routes">
+                <button id="basic" type="button" mat-button [routerLink]="route.path">
+                    {{route.name}}
+                </button>
+            </mat-list-item>
+        </mat-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar>
+            <mat-icon (click)="toggle()">menu</mat-icon>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

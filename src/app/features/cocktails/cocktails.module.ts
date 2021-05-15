@@ -18,7 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     CocktailsRoutingModule,
     MatButtonModule,
     MatListModule,
-    RouterModule,
+    // RouterModule,
     MatFormFieldModule,
   ],
   providers: [

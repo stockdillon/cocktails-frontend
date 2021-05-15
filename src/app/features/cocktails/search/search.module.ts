@@ -10,7 +10,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CocktailNameSearchResultsComponent } from './cocktail-name-search-results/cocktail-name-search-results.component';
 import { FirstLetterSearchResultsComponent } from './first-letter-search-results/first-letter-search-results.component';
-import { IngredientNameSearchResultsComponent } from './ingredient-name-search-results/ingredient-name-search-results.component';
 import { MatTableModule } from '@angular/material/table';
 
 
@@ -20,7 +19,6 @@ import { MatTableModule } from '@angular/material/table';
     SearchBoxComponent,
     CocktailNameSearchResultsComponent,
     FirstLetterSearchResultsComponent,
-    IngredientNameSearchResultsComponent,
   ],
   imports: [
     CommonModule,

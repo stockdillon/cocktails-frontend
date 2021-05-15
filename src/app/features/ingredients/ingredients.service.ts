@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { IngredientsModule } from './ingredients.module';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IngredientResponse } from '../cocktails/search/models/ingredients-response.interface';
 
-@Injectable()
+@Injectable({
+  providedIn: 'any'
+})
 export class IngredientsService {
 
   constructor(

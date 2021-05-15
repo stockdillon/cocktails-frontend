@@ -1,4 +1,24 @@
-<p>ingredients works!</p>
+<mat-form-field appearance="fill">
+    <mat-label>Search Type</mat-label>
+    <mat-select [(ngModel)]="query" name="queryType">
+        <mat-option *ngFor="let queryConfig of queryTypeConfigs" [value]="queryConfig">
+            {{queryConfig.displayText}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field class="example-full-width">
+    <mat-label>Query</mat-label>
+    <textarea matInput placeholder="Ex. Alcohol">{{query.query}}</textarea>
+</mat-form-field>
+
+<button mat-raised-button (click)="submit()">
+    Search
+</button>
+
 <pre *ngIf="ingredients$ | async as ingredients">
     {{ingredients | json}}
 </pre>
+
+<!-- <app-ingredient></app-ingredient> -->
+<router-outlet></router-outlet>

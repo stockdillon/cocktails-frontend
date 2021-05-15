@@ -1,0 +1,1 @@
+export const INGREDIENT_ID_QUERY_IDENTIFIER = 'iid';

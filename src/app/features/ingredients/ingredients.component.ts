@@ -1,8 +1,9 @@
 import { IngredientsService } from './ingredients.service';
 import { Component, OnInit } from '@angular/core';
-import { IngredientResponse } from '../cocktails/search/models/ingredients-response.interface';
+import { Ingredient, IngredientResponse } from '../cocktails/search/models/ingredients-response.interface';
 import { Observable } from 'rxjs';
 import { IngredientQueryType } from './models/ingredient-query-type.enum';
+import { ActivatedRoute } from '@angular/router';
 
 interface QueryTypeConfig {
   type: IngredientQueryType,
@@ -22,6 +23,7 @@ const defaultQueryConfig: QueryTypeConfig = {
   styleUrls: ['./ingredients.component.scss']
 })
 export class IngredientsComponent implements OnInit {
+  queryTypes = IngredientQueryType;
   queryType: IngredientQueryType = IngredientQueryType.SearchName;
   // query: QueryTypeConfig = defaultQueryConfig;
   query: QueryTypeConfig = {...defaultQueryConfig};
@@ -38,18 +40,25 @@ export class IngredientsComponent implements OnInit {
       query: '552'
     },    
   ];
-  ingredients$: Observable<IngredientResponse> = this.ingredients.search('1');
+  // ingredients$: Observable<IngredientResponse> = this.ingredients.search('1');
+  ingredients$: Observable<IngredientResponse>;
+  ingredient: Ingredient;
   constructor(
-    private ingredients: IngredientsService
+    private ingredients: IngredientsService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
+    this.route.data.subscribe((data: {ingredient: Ingredient}) => {
+      console.log('data from router: ', data);
+      this.ingredient = data.ingredient;
+    });
   }
 
   submit(){
-    if(this.queryType === IngredientQueryType.LookupId){
+    if(this.query.type === IngredientQueryType.LookupId){
       this.ingredients$ =  this.ingredients.lookup(this.query.query);
-    } else if(this.queryType === IngredientQueryType.SearchName){
+    } else if(this.query.type === IngredientQueryType.SearchName){
       this.ingredients$ =  this.ingredients.search(this.query.query);      
     }
   }

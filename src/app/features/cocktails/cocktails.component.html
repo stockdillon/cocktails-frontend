@@ -1,0 +1,11 @@
+<p>cocktails works!</p>
+
+<mat-list>
+    <mat-list-item *ngFor="let route of routes">
+        <button id="basic" type="button" mat-button [routerLink]="route.path">
+            {{route.name}}
+        </button>
+    </mat-list-item>
+</mat-list>
+
+<router-outlet></router-outlet>

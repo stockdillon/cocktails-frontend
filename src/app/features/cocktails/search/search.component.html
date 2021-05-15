@@ -1,3 +1,13 @@
 <p>search works!</p>
 
+<mat-tab-group>
+    <mat-tab label="Cocktail Name"></mat-tab>
+    <mat-tab label="First Letter"></mat-tab>
+    <mat-tab label="Ingredient Name"></mat-tab>
+  </mat-tab-group>
+<!-- <app-search-box [(query)]="query"></app-search-box> -->
+<mat-form-field appearance="fill">
+    <mat-label>Input</mat-label>
+    <input matInput [formControl]="query">
+</mat-form-field>
 <pre *ngIf="cocktails$ | async as cocktails">{{cocktails | json}}</pre>

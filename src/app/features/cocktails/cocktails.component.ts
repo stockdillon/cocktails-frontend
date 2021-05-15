@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 
 interface Route {
   name: string,
@@ -22,9 +23,12 @@ export class CocktailsComponent implements OnInit {
     },    
   ]
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    console.log('route', this.route.snapshot.url)
   }
 
 }

@@ -5,6 +5,8 @@ import { CocktailsRoutingModule } from './cocktails-routing.module';
 import { CocktailsComponent } from './cocktails.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
+import { RouterModule } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -16,6 +18,10 @@ import { MatListModule } from '@angular/material/list';
     CocktailsRoutingModule,
     MatButtonModule,
     MatListModule,
+    RouterModule,
+    MatFormFieldModule,
+  ],
+  providers: [
   ]
 })
 export class CocktailsModule { }

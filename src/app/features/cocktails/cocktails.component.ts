@@ -14,11 +14,11 @@ export class CocktailsComponent implements OnInit {
   routes: Route[] = [
     {
       name: 'Search',
-      path: '/search'
+      path: '/cocktails/search'
     },
     {
       name: 'Lookup',
-      path: '//lookup'
+      path: '/cocktails/lookup'
     },    
   ]
 

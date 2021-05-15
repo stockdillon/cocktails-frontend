@@ -1,8 +1,10 @@
 import { AbstractControl, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { forkJoin, Observable, of } from 'rxjs';
+import { forkJoin, Observable, of, timer } from 'rxjs';
 import { CocktailsService } from 'src/app/services/cocktails.service';
 import { SearchType } from './models/search-type.enum';
+import { debounce } from 'rxjs/operators';
+
 
 type SearchTypeConfig = {
   [key in SearchType]: { display: string; };
@@ -20,7 +22,7 @@ export class SearchComponent implements OnInit {
   query: FormControl = new FormControl();
   cocktails$ =  this.cocktails.search(SearchType.FirstLetter, 'm');
   // cocktails$ =  concatma({cocktails: this.cocktails.search(SearchType.FirstLetter, this.query)});
-  cocktailsByName$ =  this.cocktails.search(SearchType.FirstLetter, 'm');
+  cocktailsByFirstLetter$ =  this.cocktails.search(SearchType.FirstLetter, 'm');
   searchTypes = SearchType;
   searchTypeConfig: SearchTypeConfig = {
     f : {display: 'Cocktail Name'},
@@ -34,10 +36,12 @@ export class SearchComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.query.valueChanges.subscribe((c: string) => {
+    this.query.valueChanges.pipe(
+      debounce((query: string) => timer(300))
+    ).subscribe((c: string) => {
       console.log('changes', c);
-      this.cocktails$ =  this.cocktails.search(SearchType.FirstLetter, c);
-    })
+      this.cocktails$ =  this.cocktails.search(this.searchType, c);
+    });
   }
 
 }

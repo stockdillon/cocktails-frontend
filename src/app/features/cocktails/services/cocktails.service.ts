@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { QueryType } from '@shared/';
+import { QueryType } from '@shared';
 import { Observable } from 'rxjs';
 import { CocktailResponse } from '../models/cocktail-response.interface';
 import { CockailIdentifier } from '../models/query-indentifiers.const';

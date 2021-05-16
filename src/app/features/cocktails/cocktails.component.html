@@ -21,19 +21,18 @@
     <textarea matInput placeholder="Ex. Alcohol">{{query.query}}</textarea>
 </mat-form-field>
 
-<!-- <button mat-raised-button (click)="submit()">
-    Search
-</button> -->
-<ng-container *ngIf="query.query">
-    <button mat-raised-button color="primary" [routerLink]="'/cocktails/lookup/' + query.query"
-        *ngIf="query.type === queryTypes.Lookup">
-        Lookup ID
-    </button>
-    <button mat-raised-button color="primary" [routerLink]="'/cocktails/search/' + query.query"
-        *ngIf="query.type === queryTypes.Search">
-        Search Name
-    </button>
-</ng-container>
+<mat-toolbar class="center">
+    <ng-container *ngIf="query.query">
+        <button mat-raised-button color="primary" [routerLink]="'/cocktails/lookup/' + query.query"
+            *ngIf="query.type === queryTypes.Lookup">
+            Lookup ID
+        </button>
+        <button mat-raised-button color="primary" [routerLink]="'/cocktails/search/' + query.query"
+            *ngIf="query.type === queryTypes.Search">
+            Search Name
+        </button>
+    </ng-container>
+</mat-toolbar>
 
 <ng-container *ngIf="cocktails$ | async as cocktails">
     <mat-form-field>

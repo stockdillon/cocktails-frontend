@@ -10,7 +10,9 @@ import { Ingredient } from '../models/ingredients-response.interface';
 import { map } from 'rxjs/operators';
 import { IngredientIdentifier } from '../models/query-indentifiers.const';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class IngredientResolver implements Resolve<Ingredient> {
   constructor(
     private ingredients: IngredientsService,

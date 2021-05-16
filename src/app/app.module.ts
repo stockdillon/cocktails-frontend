@@ -26,8 +26,6 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
     SharedModule,
     AngularMaterialModule
   ],
-  providers: [
-  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

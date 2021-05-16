@@ -1,6 +1,6 @@
 import { IngredientsService } from './ingredients.service';
 import { Component, OnInit } from '@angular/core';
-import { Ingredient, IngredientResponse } from '../cocktails/search/models/ingredients-response.interface';
+import { Ingredient, IngredientResponse } from './models/ingredients-response.interface';
 import { Observable } from 'rxjs';
 import { IngredientQueryType } from './models/ingredient-query-type.enum';
 import { ActivatedRoute } from '@angular/router';

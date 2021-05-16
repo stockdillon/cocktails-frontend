@@ -1,4 +1,4 @@
 export enum IngredientQueryType {
-    SearchName = 'SearchName',
-    LookupId = 'LookupId',
+    SearchName = 'search',
+    LookupId = 'lookup',
 }

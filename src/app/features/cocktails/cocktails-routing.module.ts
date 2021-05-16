@@ -1,11 +1,21 @@
+import { CocktailResolver } from './cocktail.resolver';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CocktailsComponent } from './cocktails.component';
+import { CockailIdentifier } from './models/query-indentifiers.const';
 
 const routes: Routes = [
-  { path: 'lookup', loadChildren: () => import('./lookup/lookup.module').then(m => m.LookupModule) },
-  { path: 'search', loadChildren: () => import('./search/search.module').then(m => m.SearchModule) },  
   { path: '', component: CocktailsComponent, pathMatch: 'full' },
+  {
+    path: `lookup/:${CockailIdentifier.Id}`,
+    resolve: {drinks: CocktailResolver},
+    component: CocktailsComponent,
+  },
+  {
+    path: `search/:${CockailIdentifier.Name}`,
+    resolve: {drinks: CocktailResolver},
+    component: CocktailsComponent,
+  },    
 ];
 
 @NgModule({

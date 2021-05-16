@@ -1,14 +1,14 @@
 import { IngredientsService } from './ingredients.service';
 import { Injectable } from '@angular/core';
 import {
-  Router, Resolve,
+  Resolve,
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { Ingredient } from '../cocktails/search/models/ingredients-response.interface';
+import { Observable } from 'rxjs';
+import { Ingredient } from './models/ingredients-response.interface';
 import { map } from 'rxjs/operators';
-import { INGREDIENT_ID_QUERY_IDENTIFIER, INGREDIENT_NAME_QUERY_IDENTIFIER } from './query-indentifiers.const';
+import { IngredientIdentifier } from './models/query-indentifiers.const';
 
 @Injectable()
 export class IngredientResolver implements Resolve<Ingredient> {
@@ -16,8 +16,8 @@ export class IngredientResolver implements Resolve<Ingredient> {
     private ingredients: IngredientsService,
   ) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Ingredient> {
-    const id = route.paramMap.get(`${INGREDIENT_ID_QUERY_IDENTIFIER}`);
-    const name = route.paramMap.get(`${INGREDIENT_NAME_QUERY_IDENTIFIER}`);
+    const id = route.paramMap.get(`${IngredientIdentifier.Id}`);
+    const name = route.paramMap.get(`${IngredientIdentifier.Name}`);
     if (id) {
       return this.ingredients.lookup(id).pipe(
         map(res => {

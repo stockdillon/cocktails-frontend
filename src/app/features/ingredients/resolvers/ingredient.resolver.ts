@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { Ingredient } from '../models/ingredients-response.interface';
 import { map } from 'rxjs/operators';
 import { IngredientIdentifier } from '../models/query-indentifiers.const';
-import { QueryType } from '@shared';
+import { QueryType } from '../../../shared';
 
 @Injectable({
   providedIn: 'root'

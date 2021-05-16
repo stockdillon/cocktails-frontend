@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Drink } from '../models/cocktail-response.interface';
 import { CocktailsService } from '../services/cocktails.service';
-import { QueryType } from '@shared';
+import { QueryType } from '../../../shared';
 
 @Injectable({
   providedIn: 'root'

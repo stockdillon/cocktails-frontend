@@ -1,4 +1,4 @@
-import { QueryType } from "@shared";
+import { QueryType } from "..";
 
 export interface QueryTypeConfig {
     type: QueryType,

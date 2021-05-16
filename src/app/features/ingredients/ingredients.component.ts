@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Ingredient, IngredientResponse } from './models/ingredients-response.interface';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { QueryType, QueryTypeConfig } from '@shared/index';
+import { QueryType, QueryTypeConfig } from '@shared';
 import { IngredientIdentifier } from './models/query-indentifiers.const';
 
 export interface IngredientQueryTypeConfig {

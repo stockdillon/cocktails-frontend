@@ -5,8 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Drink } from './models/cocktail-response.interface';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { QueryType, QueryTypeConfig } from '@shared/index';
-import { ColumnConfig } from '@shared/models/mat-column-config.interface';
+import { QueryType, QueryTypeConfig } from '@shared';
+import { ColumnConfig } from '@shared';
 import { CockailIdentifier } from './models/query-indentifiers.const';
 import { MatSort } from '@angular/material/sort';
 

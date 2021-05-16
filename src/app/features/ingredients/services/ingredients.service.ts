@@ -1,7 +1,7 @@
 import { IngredientIdentifier } from '../models/query-indentifiers.const';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { QueryType } from '@shared/';
+import { QueryType } from '@shared';
 import { Observable, of } from 'rxjs';
 import { IngredientResponse } from '../models/ingredients-response.interface';
 

@@ -1,4 +1,4 @@
-import { QueryType } from "@shared/models/query-type.enum";
+import { QueryType } from "@shared";
 
 export interface QueryTypeConfig {
     type: QueryType,

@@ -19,12 +19,7 @@
 
 <mat-toolbar class="center">
     <ng-container *ngIf="query.query">
-        <button type="submit" mat-raised-button color="primary"
-            [routerLink]="
-            query.identifier === identifiers.Name 
-            || query.identifier === identifiers.Id
-            ? '/cocktails/' + query.type + '/' + query.query
-            : '/cocktails/' + query.type + '/first/' + query.query">
+        <button (click)="submit()" mat-raised-button color="primary">
             {{query.displayText}}
         </button>
     </ng-container>

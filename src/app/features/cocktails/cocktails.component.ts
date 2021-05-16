@@ -9,6 +9,7 @@ import { QueryType, QueryTypeConfig } from '@shared/index';
 import { ColumnConfig } from '@shared/models/mat-column-config.interface';
 import { CockailIdentifier } from './models/query-indentifiers.const';
 import { MatSort } from '@angular/material/sort';
+import { CocktailsService } from './services/cocktails.service';
 
 export interface CocktailQueryTypeConfig {
   identifier: CockailIdentifier,
@@ -84,6 +85,7 @@ export class CocktailsComponent implements OnInit, AfterViewInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private cocktails: CocktailsService,
   ) { 
     this.cocktails$ = this.route.data.pipe(
       map((data: {drinks: Drink[]}) => {
@@ -110,17 +112,20 @@ export class CocktailsComponent implements OnInit, AfterViewInit {
   }  
 
   submit(){
-    let routeSegments = ['cocktails', this.query.type];
-    if(this.query.identifier === CockailIdentifier.FirstLetter){
-      routeSegments.push('first')
-    }
-    routeSegments.push(this.query.query);
-    this.router.navigate(routeSegments, {relativeTo: undefined, skipLocationChange: true})
-    // this.ingredients$ = this.ingredients.get(this.query.type, this.query.identifier, this.query.query).pipe(
-    //   tap((data: IngredientResponse) => {
-    //     this.ingredient = data.ingredients.find((ingr, index) => index === 0);
-    //   }),
-    // );
+    // let routeSegments = ['cocktails', this.query.type];
+    // if(this.query.identifier === CockailIdentifier.FirstLetter){
+    //   routeSegments.push('first')
+    // }
+    // routeSegments.push(this.query.query);
+    // this.router.navigate(routeSegments, {relativeTo: undefined, skipLocationChange: true})
+    this.cocktails$ = this.cocktails.get(this.query.type, this.query.identifier, this.query.query).pipe(
+      map(r => r.drinks),
+      tap((drinks: Drink[]) => {
+        this.dataSource.data = drinks;
+        this.dataSource.sort = this.sort;
+        console.log('data source: ', drinks);
+      })      
+    );
   }    
 
 }

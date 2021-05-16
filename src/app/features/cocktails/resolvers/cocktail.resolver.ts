@@ -1,15 +1,15 @@
-import { COCKTAIL_ID_QUERY_IDENTIFIER, COCKTAIL_NAME_QUERY_IDENTIFIER, COCKTAIL_FIRST_LETTER_QUERY_IDENTIFIER, CockailIdentifier } from './models/query-indentifiers.const';
+import { CockailIdentifier } from '../models/query-indentifiers.const';
 import { CocktailsService } from 'src/app/services/cocktails.service';
 import { Injectable } from '@angular/core';
 import {
-  Router, Resolve,
+  Resolve,
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Drink } from './models/cocktail-response.interface';
-import { CocktailQueryType } from './models/cocktail-query-type.enum';
+import { Drink } from '../models/cocktail-response.interface';
+import { CocktailQueryType } from '../models/cocktail-query-type.enum';
 
 @Injectable({
   providedIn: 'root'

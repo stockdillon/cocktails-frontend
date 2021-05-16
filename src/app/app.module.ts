@@ -1,4 +1,3 @@
-import { IngredientsService } from './features/ingredients/ingredients.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -12,7 +11,6 @@ import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
-import { IngredientResolver } from './features/ingredients/ingredient.resolver';
 
 @NgModule({
   declarations: [
@@ -29,8 +27,6 @@ import { IngredientResolver } from './features/ingredients/ingredient.resolver';
     AngularMaterialModule
   ],
   providers: [
-    // IngredientsService,
-    IngredientResolver,
   ],
   bootstrap: [AppComponent]
 })

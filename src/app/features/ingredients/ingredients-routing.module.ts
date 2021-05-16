@@ -1,4 +1,4 @@
-import { IngredientResolver } from './ingredient.resolver';
+import { IngredientResolver } from './resolvers/ingredient.resolver';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { IngredientsComponent } from './ingredients.component';

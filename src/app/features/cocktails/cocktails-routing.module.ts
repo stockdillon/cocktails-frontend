@@ -1,4 +1,4 @@
-import { CocktailResolver } from './cocktail.resolver';
+import { CocktailResolver } from './resolvers/cocktail.resolver';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CocktailsComponent } from './cocktails.component';

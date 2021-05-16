@@ -1,4 +1,4 @@
-import { IngredientsService } from './ingredients.service';
+import { IngredientsService } from '../ingredients.service';
 import { Injectable } from '@angular/core';
 import {
   Resolve,
@@ -6,9 +6,9 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Ingredient } from './models/ingredients-response.interface';
+import { Ingredient } from '../models/ingredients-response.interface';
 import { map } from 'rxjs/operators';
-import { IngredientIdentifier } from './models/query-indentifiers.const';
+import { IngredientIdentifier } from '../models/query-indentifiers.const';
 
 @Injectable()
 export class IngredientResolver implements Resolve<Ingredient> {

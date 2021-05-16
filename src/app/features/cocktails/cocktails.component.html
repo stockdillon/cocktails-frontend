@@ -24,9 +24,13 @@
             Lookup ID
         </button>
         <button mat-raised-button color="primary" [routerLink]="'/cocktails/search/' + query.query"
-            *ngIf="query.type === queryTypes.Search">
+            *ngIf="query.type === queryTypes.Search && query.identifier === identifiers.Name">
             Search Name
         </button>
+        <button mat-raised-button color="primary" [routerLink]="'/cocktails/search/first/' + query.query"
+            *ngIf="query.type === queryTypes.Search && query.identifier === identifiers.FirstLetter">
+            Search First Letter
+        </button>        
     </ng-container>
 </mat-toolbar>
 

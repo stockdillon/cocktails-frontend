@@ -15,6 +15,11 @@ const routes: Routes = [
     path: `search/:${CockailIdentifier.Name}`,
     resolve: {drinks: CocktailResolver},
     component: CocktailsComponent,
+  },
+  {
+    path: `search/first/:${CockailIdentifier.FirstLetter}`,
+    resolve: {drinks: CocktailResolver},
+    component: CocktailsComponent,
   },    
 ];
 

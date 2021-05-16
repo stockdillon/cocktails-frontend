@@ -7,11 +7,17 @@ import { Drink } from './models/cocktail-response.interface';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { QueryType, QueryTypeConfig } from '@shared/index';
 import { ColumnConfig } from '@shared/models/mat-column-config.interface';
+import { CockailIdentifier } from './models/query-indentifiers.const';
 
-const defaultQueryConfig: QueryTypeConfig = {
+export interface CocktailQueryTypeConfig {
+  identifier?: CockailIdentifier,
+}
+
+const defaultQueryConfig: QueryTypeConfig & CocktailQueryTypeConfig = {
   type: QueryType.Search,
   displayText: 'Name',
-  query: 'margarita',  
+  query: 'margarita',
+  identifier: CockailIdentifier.Name,
 };
 
 @Component({
@@ -54,18 +60,20 @@ export class CocktailsComponent implements OnInit {
 
   cocktails$: Observable<Drink[]>;
   queryTypes = QueryType;
-  query: QueryTypeConfig = {...defaultQueryConfig};
-  queryTypeConfigs: QueryTypeConfig[] = [
+  identifiers = CockailIdentifier;
+  query: QueryTypeConfig & CocktailQueryTypeConfig = {...defaultQueryConfig};
+  queryTypeConfigs: Array<QueryTypeConfig & CocktailQueryTypeConfig> = [
     {...defaultQueryConfig},
     {
       type: QueryType.Search,
       displayText: 'First Letter',
       query: 'm',  
+      identifier: CockailIdentifier.FirstLetter,
     },    
     {
       type: QueryType.Lookup,
       displayText: 'ID Lookup',
-      query: '11007'
+      query: '11007',
     },    
   ];
   expandedElement: Drink | null;

@@ -1,20 +1,19 @@
-import { IngredientsService } from './ingredients.service';
 import { Component, OnInit } from '@angular/core';
 import { Ingredient, IngredientResponse } from './models/ingredients-response.interface';
 import { Observable } from 'rxjs';
-import { IngredientQueryType } from './models/ingredient-query-type.enum';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { QueryType, QueryTypeConfig } from '@shared/index';
+import { IngredientIdentifier } from './models/query-indentifiers.const';
 
-interface QueryTypeConfig {
-  type: IngredientQueryType,
-  displayText: string,
-  query: string,
+export interface IngredientQueryTypeConfig {
+  identifier: IngredientIdentifier,
 }
 
-const defaultQueryConfig: QueryTypeConfig = {
-  type: IngredientQueryType.SearchName,
+const defaultQueryConfig: QueryTypeConfig & IngredientQueryTypeConfig = {
+  type: QueryType.Search,
   displayText: 'Search by Name',
-  query: 'vodka',  
+  query: 'vodka',
+  identifier: IngredientIdentifier.Name
 };
 
 @Component({
@@ -23,44 +22,29 @@ const defaultQueryConfig: QueryTypeConfig = {
   styleUrls: ['./ingredients.component.scss']
 })
 export class IngredientsComponent implements OnInit {
-  queryTypes = IngredientQueryType;
-  queryType: IngredientQueryType = IngredientQueryType.SearchName;
-  // query: QueryTypeConfig = defaultQueryConfig;
-  query: QueryTypeConfig = {...defaultQueryConfig};
-  queryTypeConfigs: QueryTypeConfig[] = [
-    // {
-    //   type: IngredientQueryType.SearchName,
-    //   displayText: 'Search by Name',
-    //   query: 'alcohol',
-    // },
-    {...defaultQueryConfig},
+  queryTypes = QueryType;
+  queryType: QueryType = QueryType.Search;
+  query: QueryTypeConfig & IngredientQueryTypeConfig = { ...defaultQueryConfig };
+  queryTypeConfigs: Array<QueryTypeConfig & IngredientQueryTypeConfig> = [
+    { ...defaultQueryConfig },
     {
-      type: IngredientQueryType.LookupId,
+      type: QueryType.Lookup,
       displayText: 'Search by ID',
-      query: '552'
-    },    
+      query: '552',
+      identifier: IngredientIdentifier.Id,
+    },
   ];
-  // ingredients$: Observable<IngredientResponse> = this.ingredients.search('1');
   ingredients$: Observable<IngredientResponse>;
   ingredient: Ingredient;
   constructor(
-    private ingredients: IngredientsService,
-    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
-    this.route.data.subscribe((data: {ingredient: Ingredient}) => {
-      console.log('data from router: ', data);
-      this.ingredient = data.ingredient;
-    });
   }
 
-  submit(){
-    if(this.query.type === IngredientQueryType.LookupId){
-      this.ingredients$ =  this.ingredients.lookup(this.query.query);
-    } else if(this.query.type === IngredientQueryType.SearchName){
-      this.ingredients$ =  this.ingredients.search(this.query.query);      
-    }
+  submit() {
+    const routeSegments = ['ingredients', this.query.type, this.query.query];
+    this.router.navigate(routeSegments, {relativeTo: undefined});
   }
-
 }

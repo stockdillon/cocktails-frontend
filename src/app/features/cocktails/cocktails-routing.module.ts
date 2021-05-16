@@ -1,4 +1,4 @@
-import { CocktailResolver } from './cocktail.resolver';
+import { CocktailResolver } from './resolvers/cocktail.resolver';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CocktailsComponent } from './cocktails.component';
@@ -13,6 +13,11 @@ const routes: Routes = [
   },
   {
     path: `search/:${CockailIdentifier.Name}`,
+    resolve: {drinks: CocktailResolver},
+    component: CocktailsComponent,
+  },
+  {
+    path: `search/first/:${CockailIdentifier.FirstLetter}`,
     resolve: {drinks: CocktailResolver},
     component: CocktailsComponent,
   },    

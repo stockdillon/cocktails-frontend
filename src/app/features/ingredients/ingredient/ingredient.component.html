@@ -1,14 +1,31 @@
 <mat-card class="example-card" *ngIf="ingredient">
     <mat-card-header>
-        <!-- <div mat-card-avatar class="example-header-image"></div> -->
-        <mat-icon>menu_book</mat-icon>
-        <mat-card-title>{{ingredient.strType}}</mat-card-title>
+        <mat-icon mat-card-avatar>menu_book</mat-icon>
+        <mat-card-title>
+            {{ingredient.strType}}
+        </mat-card-title>
         <mat-card-subtitle>{{ingredient.idIngredient}}</mat-card-subtitle>
     </mat-card-header>
-    <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
     <mat-card-content>
-        <p>
-            {{ingredient.strDescription}}
-        </p>
+        <div class="container">
+            <div class="row" style="padding-bottom:10px">
+                <div class="col" *ngIf="ingredient.strABV">
+                    <div>
+                        ABV: {{ingredient.strABV}}
+                    </div>
+                </div>
+                <div class="col" *ngIf="ingredient.strAlcohol">
+                    <div>
+                        Alcohol: {{ingredient.strAlcohol}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" *ngIf="ingredient.strDescription">
+                    <mat-label class="spacer">Description:</mat-label>
+                    {{ingredient.strDescription}}
+                </div>
+            </div>
+        </div>
     </mat-card-content>
 </mat-card>

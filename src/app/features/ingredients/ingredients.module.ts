@@ -1,6 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from './../../angular-material/angular-material.module';
-import { IngredientsService } from './ingredients.service';
+import { IngredientsService } from './services/ingredients.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -25,7 +25,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   providers: [
     IngredientsService,
     HttpClient,
-    // IngredientsModule,
   ]
 })
 export class IngredientsModule { }

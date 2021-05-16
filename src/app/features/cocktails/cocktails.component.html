@@ -1,57 +1,70 @@
-<!-- <mat-list>
-    <mat-list-item *ngFor="let route of routes">
-        <button id="basic" type="button" mat-button [routerLink]="route.path">
-            {{route.name}}
-        </button>
-    </mat-list-item>
-</mat-list>
- -->
+<div class="spacer">
+    <mat-label style="font-weight: 500;">Search Type</mat-label>
+</div>
 
-<mat-form-field appearance="fill">
-    <mat-label>Search Type</mat-label>
-    <mat-select [(ngModel)]="query" name="queryType">
-        <mat-option *ngFor="let queryConfig of queryTypeConfigs" [value]="queryConfig">
+<div>
+    <mat-button-toggle-group [(ngModel)]="query" name="queryType">
+        <mat-button-toggle *ngFor="let queryConfig of queryTypeConfigs" [value]="queryConfig">
             {{queryConfig.displayText}}
-        </mat-option>
-    </mat-select>
-</mat-form-field>
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>
 
-<mat-form-field class="example-full-width">
-    <mat-label>Query</mat-label>
-    <textarea matInput placeholder="Ex. Alcohol">{{query.query}}</textarea>
-</mat-form-field>
+<div class="spacer">
+    <mat-form-field class="example-full-width">
+        <mat-label>Query</mat-label>
+        <input matInput [(ngModel)]="query.query" placeholder="Ex. Margarita">
+    </mat-form-field>
+</div>
 
-<!-- <button mat-raised-button (click)="submit()">
-    Search
-</button> -->
-<ng-container *ngIf="query.query">
-    <button mat-raised-button color="primary" [routerLink]="'/cocktails/lookup/' + query.query"
-        *ngIf="query.type === queryTypes.Lookup">
-        Lookup ID
-    </button>
-    <button mat-raised-button color="primary" [routerLink]="'/cocktails/search/' + query.query"
-        *ngIf="query.type === queryTypes.Search">
-        Search Name
-    </button>
-</ng-container>
+<mat-toolbar class="center">
+    <ng-container *ngIf="query.query">
+        <button (click)="submit()" mat-raised-button color="primary">
+            {{query.displayText}}
+        </button>
+    </ng-container>
+</mat-toolbar>
 
 <ng-container *ngIf="cocktails$ | async as cocktails">
     <mat-form-field>
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+        <mat-label>Search against all columns</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="ex: Tequila" #input>
     </mat-form-field>
-    
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    
-        <!-- Position Column -->
-        <ng-container matColumnDef="strDrink">
-            <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td mat-cell *matCellDef="let element"> {{element.strDrink}} </td>
+
+    <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" multiTemplateDataRows>
+        <ng-container [matColumnDef]="config.name" *ngFor="let config of columnConfigs">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{config.display}} </th>
+            <td mat-cell *matCellDef="let element"> {{element[config.name]}} </td>
         </ng-container>
-    
+
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                <div class="example-element-detail"
+                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                    <div class="left-col">
+                        <div class="col-title">Ingredients</div>
+                        <div> {{element.position}} </div>
+                        <div> {{element.strIngredient2}} </div>
+                        <div> {{element.strIngredient3}} </div>
+                        <div> {{element.strIngredient4}} </div>
+                    </div>
+                    <div class="right-col">
+                        <div class="col-title">Instructions</div>
+                        <div>{{element.strInstructions}}</div>
+                    </div>
+                </div>
+            </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    
+        <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
+
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>

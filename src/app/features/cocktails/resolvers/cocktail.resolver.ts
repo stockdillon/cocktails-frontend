@@ -1,5 +1,4 @@
 import { CockailIdentifier } from '../models/query-indentifiers.const';
-import { CocktailsService } from 'src/app/services/cocktails.service';
 import { Injectable } from '@angular/core';
 import {
   Resolve,
@@ -10,6 +9,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Drink } from '../models/cocktail-response.interface';
 import { CocktailQueryType } from '../models/cocktail-query-type.enum';
+import { CocktailsService } from '../../../../app/services/cocktails.service';
 
 @Injectable({
   providedIn: 'root'

@@ -8,8 +8,8 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Drink } from '../models/cocktail-response.interface';
-import { CocktailQueryType } from '../models/cocktail-query-type.enum';
-import { CocktailsService } from '../../../../app/services/cocktails.service';
+import { CocktailsService } from '../services/cocktails.service';
+import { QueryType } from '@shared/index';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,7 @@ export class CocktailResolver implements Resolve<Observable<Drink[]>> {
     const firstLetter = route.paramMap.get(`${CockailIdentifier.FirstLetter}`);
     const query = id || name || firstLetter;
     if (id) {
-      return this.cocktails.get(CocktailQueryType.Lookup, CockailIdentifier.Id, query).pipe(
+      return this.cocktails.get(QueryType.Lookup, CockailIdentifier.Id, query).pipe(
         map(res => {
           console.log('id: ', id);
           console.log('ingredients response: ', res);
@@ -34,7 +34,7 @@ export class CocktailResolver implements Resolve<Observable<Drink[]>> {
         })
       );
     } else if (name){
-      return this.cocktails.get(CocktailQueryType.Search, CockailIdentifier.Name, query).pipe(
+      return this.cocktails.get(QueryType.Search, CockailIdentifier.Name, query).pipe(
         map(res => {
           console.log('name: ', name);
           console.log('ingredients response: ', res);
@@ -42,7 +42,7 @@ export class CocktailResolver implements Resolve<Observable<Drink[]>> {
         })
       );
     } else if (firstLetter){
-      return this.cocktails.get(CocktailQueryType.Search, CockailIdentifier.FirstLetter, query).pipe(
+      return this.cocktails.get(QueryType.Search, CockailIdentifier.FirstLetter, query).pipe(
         map(res => {
           console.log('first letter: ', name);
           console.log('ingredients response: ', res);

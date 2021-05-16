@@ -1,18 +1,12 @@
-import { IngredientsService } from './ingredients.service';
 import { Component, OnInit } from '@angular/core';
 import { Ingredient, IngredientResponse } from './models/ingredients-response.interface';
 import { Observable } from 'rxjs';
-import { IngredientQueryType } from './models/ingredient-query-type.enum';
 import { ActivatedRoute } from '@angular/router';
-
-interface QueryTypeConfig {
-  type: IngredientQueryType,
-  displayText: string,
-  query: string,
-}
+import { IngredientsService } from './services/ingredients.service';
+import { QueryType, QueryTypeConfig } from '@shared/index';
 
 const defaultQueryConfig: QueryTypeConfig = {
-  type: IngredientQueryType.SearchName,
+  type: QueryType.Search,
   displayText: 'Search by Name',
   query: 'vodka',  
 };
@@ -23,24 +17,17 @@ const defaultQueryConfig: QueryTypeConfig = {
   styleUrls: ['./ingredients.component.scss']
 })
 export class IngredientsComponent implements OnInit {
-  queryTypes = IngredientQueryType;
-  queryType: IngredientQueryType = IngredientQueryType.SearchName;
-  // query: QueryTypeConfig = defaultQueryConfig;
+  queryTypes = QueryType;
+  queryType: QueryType = QueryType.Search;
   query: QueryTypeConfig = {...defaultQueryConfig};
   queryTypeConfigs: QueryTypeConfig[] = [
-    // {
-    //   type: IngredientQueryType.SearchName,
-    //   displayText: 'Search by Name',
-    //   query: 'alcohol',
-    // },
     {...defaultQueryConfig},
     {
-      type: IngredientQueryType.LookupId,
+      type: QueryType.Lookup,
       displayText: 'Search by ID',
       query: '552'
     },    
   ];
-  // ingredients$: Observable<IngredientResponse> = this.ingredients.search('1');
   ingredients$: Observable<IngredientResponse>;
   ingredient: Ingredient;
   constructor(
@@ -56,9 +43,9 @@ export class IngredientsComponent implements OnInit {
   }
 
   submit(){
-    if(this.query.type === IngredientQueryType.LookupId){
+    if(this.query.type === QueryType.Lookup){
       this.ingredients$ =  this.ingredients.lookup(this.query.query);
-    } else if(this.query.type === IngredientQueryType.SearchName){
+    } else if(this.query.type === QueryType.Search){
       this.ingredients$ =  this.ingredients.search(this.query.query);      
     }
   }

@@ -1,25 +1,21 @@
-<!-- <mat-list>
-    <mat-list-item *ngFor="let route of routes">
-        <button id="basic" type="button" mat-button [routerLink]="route.path">
-            {{route.name}}
-        </button>
-    </mat-list-item>
-</mat-list>
- -->
-
-<mat-form-field appearance="fill">
+<div class="spacer">
     <mat-label>Search Type</mat-label>
-    <mat-select [(ngModel)]="query" name="queryType">
-        <mat-option *ngFor="let queryConfig of queryTypeConfigs" [value]="queryConfig">
-            {{queryConfig.displayText}}
-        </mat-option>
-    </mat-select>
-</mat-form-field>
+</div>
 
-<mat-form-field class="example-full-width">
-    <mat-label>Query</mat-label>
-    <textarea matInput placeholder="Ex. Alcohol">{{query.query}}</textarea>
-</mat-form-field>
+<div>
+    <mat-button-toggle-group [(ngModel)]="query" name="queryType">
+        <mat-button-toggle *ngFor="let queryConfig of queryTypeConfigs" [value]="queryConfig">
+            {{queryConfig.displayText}}
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>
+
+<div class="spacer">
+    <mat-form-field class="example-full-width">
+        <mat-label>Query</mat-label>
+        <textarea matInput placeholder="Ex. Alcohol">{{query.query}}</textarea>
+    </mat-form-field>
+</div>
 
 <mat-toolbar class="center">
     <ng-container *ngIf="query.query">

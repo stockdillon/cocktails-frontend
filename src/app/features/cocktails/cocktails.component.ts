@@ -1,35 +1,18 @@
 import { map, tap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { CocktailQueryType } from './models/cocktail-query-type.enum';
 import { Drink } from './models/cocktail-response.interface';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-
-interface Route {
-  name: string,
-  path: string,
-}
-
-interface QueryTypeConfig {
-  type: CocktailQueryType,
-  displayText: string,
-  query: string,
-}
+import { QueryType, QueryTypeConfig } from '@shared/index';
+import { ColumnConfig } from '@shared/models/mat-column-config.interface';
 
 const defaultQueryConfig: QueryTypeConfig = {
-  type: CocktailQueryType.Search,
-  displayText: 'Search by Name',
+  type: QueryType.Search,
+  displayText: 'Name',
   query: 'margarita',  
 };
-
-interface ColumnConfig {
-  display: string,
-  visible: boolean,
-  name: string,
-}
-
 
 @Component({
   selector: 'app-cocktails',
@@ -44,7 +27,6 @@ interface ColumnConfig {
   ],  
 })
 export class CocktailsComponent implements OnInit {
-  // displayedColumns: string[] = ['strDrink', 'idDrink', 'strCategory'];
   displayedColumns: string[];
   columnConfigs: ColumnConfig[] = [
     {
@@ -71,18 +53,18 @@ export class CocktailsComponent implements OnInit {
   dataSource = new MatTableDataSource();
 
   cocktails$: Observable<Drink[]>;
-  queryTypes = CocktailQueryType;
+  queryTypes = QueryType;
   query: QueryTypeConfig = {...defaultQueryConfig};
   queryTypeConfigs: QueryTypeConfig[] = [
     {...defaultQueryConfig},
     {
-      type: CocktailQueryType.Search,
-      displayText: 'Search by First Letter',
+      type: QueryType.Search,
+      displayText: 'First Letter',
       query: 'm',  
     },    
     {
-      type: CocktailQueryType.Lookup,
-      displayText: 'Lookup by ID',
+      type: QueryType.Lookup,
+      displayText: 'ID Lookup',
       query: '11007'
     },    
   ];

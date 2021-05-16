@@ -1,4 +1,4 @@
-import { IngredientsService } from '../ingredients.service';
+import { IngredientsService } from '../services/ingredients.service';
 import { Injectable } from '@angular/core';
 import {
   Resolve,

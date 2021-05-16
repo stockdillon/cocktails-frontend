@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { IngredientsModule } from './ingredients.module';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { IngredientResponse } from './models/ingredients-response.interface';
+import { IngredientResponse } from '../models/ingredients-response.interface';
 
 @Injectable({
-  providedIn: 'any'
+  providedIn: 'root'
 })
 export class IngredientsService {
 

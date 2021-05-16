@@ -1,5 +1,5 @@
 <div class="spacer">
-    <mat-label>Search Type</mat-label>
+    <mat-label style="font-weight: 500;">Search Type</mat-label>
 </div>
 
 <div>
@@ -29,11 +29,6 @@
         </button>
     </ng-container>
 </mat-toolbar>
-
-
-<pre *ngIf="ingredients$ | async as ingredients">
-    {{ingredients | json}}
-</pre>
 
 <app-ingredient [ingredient]="ingredient"></app-ingredient>
 <router-outlet></router-outlet>

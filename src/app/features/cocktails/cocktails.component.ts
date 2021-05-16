@@ -1,16 +1,17 @@
 import { map, tap } from 'rxjs/operators';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Drink } from './models/cocktail-response.interface';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { QueryType, QueryTypeConfig } from '@shared/index';
 import { ColumnConfig } from '@shared/models/mat-column-config.interface';
 import { CockailIdentifier } from './models/query-indentifiers.const';
+import { MatSort } from '@angular/material/sort';
 
 export interface CocktailQueryTypeConfig {
-  identifier?: CockailIdentifier,
+  identifier: CockailIdentifier,
 }
 
 const defaultQueryConfig: QueryTypeConfig & CocktailQueryTypeConfig = {
@@ -32,7 +33,7 @@ const defaultQueryConfig: QueryTypeConfig & CocktailQueryTypeConfig = {
     ]),
   ],  
 })
-export class CocktailsComponent implements OnInit {
+export class CocktailsComponent implements OnInit, AfterViewInit {
   displayedColumns: string[];
   columnConfigs: ColumnConfig[] = [
     {
@@ -74,12 +75,15 @@ export class CocktailsComponent implements OnInit {
       type: QueryType.Lookup,
       displayText: 'ID Lookup',
       query: '11007',
+      identifier: CockailIdentifier.Id
     },    
   ];
   expandedElement: Drink | null;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
   ) { 
     this.cocktails$ = this.route.data.pipe(
       map((data: {drinks: Drink[]}) => {
@@ -96,9 +100,27 @@ export class CocktailsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }  
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }  
+
+  submit(){
+    let routeSegments = ['cocktails', this.query.type];
+    if(this.query.identifier === CockailIdentifier.FirstLetter){
+      routeSegments.push('first')
+    }
+    routeSegments.push(this.query.query);
+    this.router.navigate(routeSegments, {relativeTo: undefined, skipLocationChange: true})
+    // this.ingredients$ = this.ingredients.get(this.query.type, this.query.identifier, this.query.query).pipe(
+    //   tap((data: IngredientResponse) => {
+    //     this.ingredient = data.ingredients.find((ingr, index) => index === 0);
+    //   }),
+    // );
+  }    
 
 }

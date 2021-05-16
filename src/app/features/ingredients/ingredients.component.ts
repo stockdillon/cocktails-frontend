@@ -31,7 +31,6 @@ export class IngredientsComponent implements OnInit {
   ingredients$: Observable<IngredientResponse>;
   ingredient: Ingredient;
   constructor(
-    private ingredients: IngredientsService,
     private route: ActivatedRoute,
   ) { }
 
@@ -41,13 +40,4 @@ export class IngredientsComponent implements OnInit {
       this.ingredient = data.ingredient;
     });
   }
-
-  submit(){
-    if(this.query.type === QueryType.Lookup){
-      this.ingredients$ =  this.ingredients.lookup(this.query.query);
-    } else if(this.query.type === QueryType.Search){
-      this.ingredients$ =  this.ingredients.search(this.query.query);      
-    }
-  }
-
 }

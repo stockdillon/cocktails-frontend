@@ -1,4 +1,6 @@
+import { mockRoute } from './../../testing/mocks/route.mock';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 
 import { CocktailsComponent } from './cocktails.component';
 
@@ -8,7 +10,10 @@ describe('CocktailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CocktailsComponent ]
+      declarations: [ CocktailsComponent ],
+      providers: [
+        {provide: ActivatedRoute, useValue: mockRoute},
+      ],
     })
     .compileComponents();
   });

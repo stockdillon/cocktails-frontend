@@ -8,9 +8,10 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,12 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     SharedModule,
     AngularMaterialModule
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor, multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })

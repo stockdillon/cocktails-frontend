@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Ingredient, IngredientResponse } from './models/ingredients-response.interface';
 import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IngredientsService } from './services/ingredients.service';
+import { Router } from '@angular/router';
 import { QueryType, QueryTypeConfig } from '@shared/index';
 import { IngredientIdentifier } from './models/query-indentifiers.const';
-import { tap } from 'rxjs/operators';
 
 export interface IngredientQueryTypeConfig {
   identifier: IngredientIdentifier,
@@ -39,29 +37,14 @@ export class IngredientsComponent implements OnInit {
   ingredients$: Observable<IngredientResponse>;
   ingredient: Ingredient;
   constructor(
-    private ingredients: IngredientsService,
-    private route: ActivatedRoute,
     private router: Router,
   ) { }
 
   ngOnInit(): void {
-    // this.route.data.subscribe((data: {ingredient: Ingredient}) => {
-    //   console.log('data from router: ', data);
-    //   this.ingredient = data.ingredient;
-    // });
-    // console.log('snapshot data: ', this.route.snapshot.data);
-    // this.ingredient = this.route.snapshot.data.ingredient;
   }
 
   submit() {
     const routeSegments = ['ingredients', this.query.type, this.query.query];
-    console.log('route segments', routeSegments);
-    console.log('current url', this.route.snapshot.url);
     this.router.navigate(routeSegments, {relativeTo: undefined});
-    // this.ingredients$ = this.ingredients.get(this.query.type, this.query.identifier, this.query.query).pipe(
-    //   tap((data: IngredientResponse) => {
-    //     this.ingredient = data.ingredients.find((ingr, index) => index === 0);
-    //   }),
-    // );
   }
 }

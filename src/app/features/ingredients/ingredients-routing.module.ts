@@ -9,7 +9,6 @@ const routes: Routes = [
   { path: '', component: IngredientsComponent, pathMatch: 'full' },
   {
     path: `lookup`,
-    // resolve: {ingredient: IngredientResolver},
     component: IngredientsComponent,
     children: [
       {
@@ -21,7 +20,6 @@ const routes: Routes = [
   },
   {
     path: `search`,
-    // resolve: { ingredient: IngredientResolver },
     component: IngredientsComponent,
     children: [
       {

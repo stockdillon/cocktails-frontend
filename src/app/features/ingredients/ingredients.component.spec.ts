@@ -1,5 +1,6 @@
+import { mockRouter } from './../../testing/mocks/router.mock';
 import { mockRoute } from './../../testing/mocks/route.mock';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { IngredientsComponent } from './ingredients.component';
@@ -18,6 +19,7 @@ describe('IngredientsComponent', () => {
       providers: [
         provideMockStore({initialState}),
         {provide: ActivatedRoute, useValue: mockRoute},
+        {provide: Router, useValue: mockRouter},
       ]
     })
       .compileComponents();

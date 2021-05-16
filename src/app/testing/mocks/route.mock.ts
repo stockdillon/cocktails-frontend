@@ -5,4 +5,7 @@ export const mockRoute = {
     //     return of({})
     // }
     data: of({}),
+    snapshot: {
+        data: {},
+    }
 }

@@ -1,6 +1,7 @@
 import { mockRoute } from './../../testing/mocks/route.mock';
+import { mockRouter } from './../../testing/mocks/router.mock';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { CocktailsComponent } from './cocktails.component';
 
@@ -13,6 +14,7 @@ describe('CocktailsComponent', () => {
       declarations: [ CocktailsComponent ],
       providers: [
         {provide: ActivatedRoute, useValue: mockRoute},
+        {provide: Router, useValue: mockRouter},
       ],
     })
     .compileComponents();

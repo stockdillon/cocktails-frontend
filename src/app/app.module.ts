@@ -1,3 +1,4 @@
+import { IngredientsService } from './features/ingredients/ingredients.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 

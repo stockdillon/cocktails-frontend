@@ -1,34 +1,30 @@
-<div class="spacer">
-    <mat-label style="font-weight: 500;">Search Type</mat-label>
-</div>
-
-<div>
-    <mat-button-toggle-group [(ngModel)]="query" name="queryType">
-        <mat-button-toggle *ngFor="let queryConfig of queryTypeConfigs" [value]="queryConfig">
-            {{queryConfig.displayText}}
-        </mat-button-toggle>
-    </mat-button-toggle-group>
-</div>
-
-<div class="spacer">
-    <mat-form-field class="example-full-width">
-        <mat-label>Query</mat-label>
-        <textarea matInput placeholder="Ex. Alcohol">{{query.query}}</textarea>
-    </mat-form-field>
-</div>
-
-<mat-toolbar class="center">
-    <ng-container *ngIf="query.query">
-        <button mat-raised-button color="primary" [routerLink]="'/ingredients/lookup/' + query.query"
-            *ngIf="query.type === queryTypes.Lookup">
-            Lookup ID
-        </button>
-        <button mat-raised-button color="primary" [routerLink]="'/ingredients/search/' + query.query"
-            *ngIf="query.type === queryTypes.Search">
-            Search Name
-        </button>
-    </ng-container>
-</mat-toolbar>
+<ng-container>
+    <div class="spacer">
+        <mat-label style="font-weight: 500;">Search Type</mat-label>
+    </div>
+    
+    <div>
+        <mat-button-toggle-group [(ngModel)]="query" name="queryType">
+            <mat-button-toggle *ngFor="let queryConfig of queryTypeConfigs" [value]="queryConfig">
+                {{queryConfig.displayText}}
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    
+    <div class="spacer">
+        <mat-form-field class="example-full-width">
+            <mat-label>Query</mat-label>
+            <input matInput [(ngModel)]="query.query" placeholder="Ex. Alcohol">
+        </mat-form-field>
+    </div>
+    <mat-toolbar class="center">
+        <ng-container *ngIf="query.query">
+            <button (click)="submit()" mat-raised-button color="primary">
+                {{query.displayText}}
+            </button>
+        </ng-container>
+    </mat-toolbar>
+</ng-container>
 
 <app-ingredient [ingredient]="ingredient"></app-ingredient>
 <router-outlet></router-outlet>

@@ -25,7 +25,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   providers: [
     IngredientsService,
     HttpClient,
-    // IngredientsModule,
   ]
 })
 export class IngredientsModule { }

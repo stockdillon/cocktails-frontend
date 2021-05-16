@@ -13,24 +13,20 @@
 <div class="spacer">
     <mat-form-field class="example-full-width">
         <mat-label>Query</mat-label>
-        <textarea matInput placeholder="Ex. Alcohol">{{query.query}}</textarea>
+        <input matInput [(ngModel)]="query.query" placeholder="Ex. Margarita">
     </mat-form-field>
 </div>
 
 <mat-toolbar class="center">
     <ng-container *ngIf="query.query">
-        <button mat-raised-button color="primary" [routerLink]="'/cocktails/lookup/' + query.query"
-            *ngIf="query.type === queryTypes.Lookup">
-            Lookup ID
+        <button type="submit" mat-raised-button color="primary"
+            [routerLink]="
+            query.identifier === identifiers.Name 
+            || query.identifier === identifiers.Id
+            ? '/cocktails/' + query.type + '/' + query.query
+            : '/cocktails/' + query.type + '/first/' + query.query">
+            {{query.displayText}}
         </button>
-        <button mat-raised-button color="primary" [routerLink]="'/cocktails/search/' + query.query"
-            *ngIf="query.type === queryTypes.Search && query.identifier === identifiers.Name">
-            Search Name
-        </button>
-        <button mat-raised-button color="primary" [routerLink]="'/cocktails/search/first/' + query.query"
-            *ngIf="query.type === queryTypes.Search && query.identifier === identifiers.FirstLetter">
-            Search First Letter
-        </button>        
     </ng-container>
 </mat-toolbar>
 

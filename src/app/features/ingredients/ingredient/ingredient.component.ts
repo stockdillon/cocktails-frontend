@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Ingredient } from '../models/ingredients-response.interface';
 
 @Component({
@@ -8,9 +9,13 @@ import { Ingredient } from '../models/ingredients-response.interface';
 })
 export class IngredientComponent implements OnInit {
   @Input() ingredient: Ingredient;
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
+    console.log('snapshot data: ', this.route.snapshot.data);
+    this.ingredient = this.route.snapshot.data.ingredient;    
   }
 
 }

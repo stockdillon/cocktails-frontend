@@ -26,15 +26,15 @@ const defaultQueryConfig: QueryTypeConfig & IngredientQueryTypeConfig = {
 export class IngredientsComponent implements OnInit {
   queryTypes = QueryType;
   queryType: QueryType = QueryType.Search;
-  query: QueryTypeConfig & IngredientQueryTypeConfig = {...defaultQueryConfig};
+  query: QueryTypeConfig & IngredientQueryTypeConfig = { ...defaultQueryConfig };
   queryTypeConfigs: Array<QueryTypeConfig & IngredientQueryTypeConfig> = [
-    {...defaultQueryConfig},
+    { ...defaultQueryConfig },
     {
       type: QueryType.Lookup,
       displayText: 'Search by ID',
       query: '552',
       identifier: IngredientIdentifier.Id,
-    },    
+    },
   ];
   ingredients$: Observable<IngredientResponse>;
   ingredient: Ingredient;
@@ -45,24 +45,23 @@ export class IngredientsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('snapshot data: ', this.route.snapshot.data);
-    this.route.data.subscribe((data: {ingredient: Ingredient}) => {
-      console.log('data from router: ', data);
-      this.ingredient = {...data.ingredient};
-    });
+    // this.route.data.subscribe((data: {ingredient: Ingredient}) => {
+    //   console.log('data from router: ', data);
+    //   this.ingredient = data.ingredient;
+    // });
+    // console.log('snapshot data: ', this.route.snapshot.data);
+    // this.ingredient = this.route.snapshot.data.ingredient;
   }
 
-  submit(){
+  submit() {
     const routeSegments = ['ingredients', this.query.type, this.query.query];
-    this.router.navigate(routeSegments, {relativeTo: undefined, skipLocationChange: true})
+    console.log('route segments', routeSegments);
+    console.log('current url', this.route.snapshot.url);
+    this.router.navigate(routeSegments, {relativeTo: undefined});
     // this.ingredients$ = this.ingredients.get(this.query.type, this.query.identifier, this.query.query).pipe(
     //   tap((data: IngredientResponse) => {
     //     this.ingredient = data.ingredients.find((ingr, index) => index === 0);
     //   }),
     // );
-  }  
-
-  emitQuery(event: Event){
-    console.log('event:', event);
-  }  
+  }
 }
